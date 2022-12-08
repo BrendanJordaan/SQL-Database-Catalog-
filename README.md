@@ -1,0 +1,290 @@
+# SQL-Database-Catalog-
+GO
+/****** Object:  Database [AssessmentDB]    Script Date: 10/14/2020 10:16:26 AM ******/
+CREATE DATABASE [AssessmentDB]
+ CONTAINMENT = NONE
+ ON  PRIMARY 
+( NAME = N'AssessmentDB', FILENAME = N'C:\DB\AssessmentDB.mdf' , SIZE = 8192KB , MAXSIZE = UNLIMITED, FILEGROWTH = 65536KB )
+ LOG ON 
+( NAME = N'AssessmentDB_log', FILENAME = N'C:\DB\AssessmentDB_log.ldf' , SIZE = 8192KB , MAXSIZE = 2048GB , FILEGROWTH = 65536KB )
+ WITH CATALOG_COLLATION = DATABASE_DEFAULT
+GO
+ALTER DATABASE [AssessmentDB] SET COMPATIBILITY_LEVEL = 150
+GO
+IF (1 = FULLTEXTSERVICEPROPERTY('IsFullTextInstalled'))
+begin
+EXEC [AssessmentDB].[dbo].[sp_fulltext_database] @action = 'enable'
+end
+GO
+ALTER DATABASE [AssessmentDB] SET ANSI_NULL_DEFAULT OFF 
+GO
+ALTER DATABASE [AssessmentDB] SET ANSI_NULLS OFF 
+GO
+ALTER DATABASE [AssessmentDB] SET ANSI_PADDING OFF 
+GO
+ALTER DATABASE [AssessmentDB] SET ANSI_WARNINGS OFF 
+GO
+ALTER DATABASE [AssessmentDB] SET ARITHABORT OFF 
+GO
+ALTER DATABASE [AssessmentDB] SET AUTO_CLOSE OFF 
+GO
+ALTER DATABASE [AssessmentDB] SET AUTO_SHRINK OFF 
+GO
+ALTER DATABASE [AssessmentDB] SET AUTO_UPDATE_STATISTICS ON 
+GO
+ALTER DATABASE [AssessmentDB] SET CURSOR_CLOSE_ON_COMMIT OFF 
+GO
+ALTER DATABASE [AssessmentDB] SET CURSOR_DEFAULT  GLOBAL 
+GO
+ALTER DATABASE [AssessmentDB] SET CONCAT_NULL_YIELDS_NULL OFF 
+GO
+ALTER DATABASE [AssessmentDB] SET NUMERIC_ROUNDABORT OFF 
+GO
+ALTER DATABASE [AssessmentDB] SET QUOTED_IDENTIFIER OFF 
+GO
+ALTER DATABASE [AssessmentDB] SET RECURSIVE_TRIGGERS OFF 
+GO
+ALTER DATABASE [AssessmentDB] SET  DISABLE_BROKER 
+GO
+ALTER DATABASE [AssessmentDB] SET AUTO_UPDATE_STATISTICS_ASYNC OFF 
+GO
+ALTER DATABASE [AssessmentDB] SET DATE_CORRELATION_OPTIMIZATION OFF 
+GO
+ALTER DATABASE [AssessmentDB] SET TRUSTWORTHY OFF 
+GO
+ALTER DATABASE [AssessmentDB] SET ALLOW_SNAPSHOT_ISOLATION OFF 
+GO
+ALTER DATABASE [AssessmentDB] SET PARAMETERIZATION SIMPLE 
+GO
+ALTER DATABASE [AssessmentDB] SET READ_COMMITTED_SNAPSHOT OFF 
+GO
+ALTER DATABASE [AssessmentDB] SET HONOR_BROKER_PRIORITY OFF 
+GO
+ALTER DATABASE [AssessmentDB] SET RECOVERY FULL 
+GO
+ALTER DATABASE [AssessmentDB] SET  MULTI_USER 
+GO
+ALTER DATABASE [AssessmentDB] SET PAGE_VERIFY CHECKSUM  
+GO
+ALTER DATABASE [AssessmentDB] SET DB_CHAINING OFF 
+GO
+ALTER DATABASE [AssessmentDB] SET FILESTREAM( NON_TRANSACTED_ACCESS = OFF ) 
+GO
+ALTER DATABASE [AssessmentDB] SET TARGET_RECOVERY_TIME = 60 SECONDS 
+GO
+ALTER DATABASE [AssessmentDB] SET DELAYED_DURABILITY = DISABLED 
+GO
+EXEC sys.sp_db_vardecimal_storage_format N'AssessmentDB', N'ON'
+GO
+ALTER DATABASE [AssessmentDB] SET QUERY_STORE = OFF
+GO
+USE [AssessmentDB]
+GO
+/****** Object:  Table [dbo].[tblAdministrator]    Script Date: 10/14/2020 10:16:26 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[tblAdministrator](
+	[UserID] [int] NOT NULL,
+ CONSTRAINT [PK_tblAdministrator] PRIMARY KEY CLUSTERED 
+(
+	[UserID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[tblAssessment]    Script Date: 10/14/2020 10:16:26 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[tblAssessment](
+	[AssessmentID] [int] IDENTITY(1,1) NOT NULL,
+	[StudentLecturerModuleID] [int] NOT NULL,
+	[DueDate] [nvarchar](50) NOT NULL,
+	[AssessmentTypeID] [int] NOT NULL,
+	[AssessmentStatus] [nvarchar](50) NOT NULL,
+ CONSTRAINT [PK_tblAssessment] PRIMARY KEY CLUSTERED 
+(
+	[AssessmentID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[tblAssessmentType]    Script Date: 10/14/2020 10:16:26 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[tblAssessmentType](
+	[AssessmentTypeID] [int] IDENTITY(1,1) NOT NULL,
+	[AssessmentTypeDescription] [nvarchar](50) NOT NULL,
+ CONSTRAINT [PK_tblAssessmentType] PRIMARY KEY CLUSTERED 
+(
+	[AssessmentTypeID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[tblLecturer]    Script Date: 10/14/2020 10:16:26 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[tblLecturer](
+	[UserID] [int] NOT NULL,
+ CONSTRAINT [PK_tblLecturer] PRIMARY KEY CLUSTERED 
+(
+	[UserID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[tblLecturerModule]    Script Date: 10/14/2020 10:16:26 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[tblLecturerModule](
+	[LecturerModuleID] [int] NOT NULL,
+	[UserID] [int] NOT NULL,
+	[ModuleID] [int] NOT NULL,
+	[Date] [nvarchar](50) NOT NULL,
+	[ModLecturerStatus] [nvarchar](50) NOT NULL,
+ CONSTRAINT [PK_tblLecturerModule] PRIMARY KEY CLUSTERED 
+(
+	[LecturerModuleID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[tblModule]    Script Date: 10/14/2020 10:16:26 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[tblModule](
+	[ModuleID] [int] IDENTITY(1,1) NOT NULL,
+	[ModuleName] [nvarchar](50) NOT NULL,
+	[ModuleDuration] [nvarchar](50) NOT NULL,
+	[ModuleTypeID] [int] NOT NULL,
+ CONSTRAINT [PK_tblModule] PRIMARY KEY CLUSTERED 
+(
+	[ModuleID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[tblModuleType]    Script Date: 10/14/2020 10:16:26 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[tblModuleType](
+	[ModuleTypeID] [int] IDENTITY(1,1) NOT NULL,
+	[ModuleTypeDescription] [nvarchar](50) NOT NULL,
+ CONSTRAINT [PK_tblModuleType] PRIMARY KEY CLUSTERED 
+(
+	[ModuleTypeID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[tblStudent]    Script Date: 10/14/2020 10:16:26 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[tblStudent](
+	[UserID] [int] NOT NULL,
+ CONSTRAINT [PK_tblStudent] PRIMARY KEY CLUSTERED 
+(
+	[UserID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[tblStudentModule]    Script Date: 10/14/2020 10:16:26 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[tblStudentModule](
+	[StudentModuleID] [int] IDENTITY(1,1) NOT NULL,
+	[LecturerModuleID] [int] NOT NULL,
+	[UserID] [int] NOT NULL,
+	[Date] [int] NOT NULL,
+	[StudModStatus] [nvarchar](50) NOT NULL,
+ CONSTRAINT [PK_tblStudentLecturerModule] PRIMARY KEY CLUSTERED 
+(
+	[StudentModuleID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[tblUser]    Script Date: 10/14/2020 10:16:26 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[tblUser](
+	[UserID] [int] NOT NULL,
+	[Name] [nvarchar](50) NOT NULL,
+	[Surname] [nvarchar](50) NOT NULL,
+	[Title] [nchar](10) NOT NULL,
+	[Role] [nvarchar](50) NOT NULL,
+	[Email] [nvarchar](50) NOT NULL,
+	[Password] [nvarchar](50) NOT NULL,
+	[UserStatus] [nvarchar](50) NOT NULL,
+ CONSTRAINT [PK_tblUser] PRIMARY KEY CLUSTERED 
+(
+	[UserID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+ALTER TABLE [dbo].[tblAssessment]  WITH CHECK ADD  CONSTRAINT [FK_tblAssessment_tblAssessmentType] FOREIGN KEY([AssessmentTypeID])
+REFERENCES [dbo].[tblAssessmentType] ([AssessmentTypeID])
+GO
+ALTER TABLE [dbo].[tblAssessment] CHECK CONSTRAINT [FK_tblAssessment_tblAssessmentType]
+GO
+ALTER TABLE [dbo].[tblAssessment]  WITH CHECK ADD  CONSTRAINT [FK_tblAssessment_tblStudentLecturerModule] FOREIGN KEY([StudentLecturerModuleID])
+REFERENCES [dbo].[tblStudentModule] ([StudentModuleID])
+GO
+ALTER TABLE [dbo].[tblAssessment] CHECK CONSTRAINT [FK_tblAssessment_tblStudentLecturerModule]
+GO
+ALTER TABLE [dbo].[tblLecturerModule]  WITH CHECK ADD  CONSTRAINT [FK_tblLecturerModule_tblModule] FOREIGN KEY([ModuleID])
+REFERENCES [dbo].[tblModule] ([ModuleID])
+GO
+ALTER TABLE [dbo].[tblLecturerModule] CHECK CONSTRAINT [FK_tblLecturerModule_tblModule]
+GO
+ALTER TABLE [dbo].[tblLecturerModule]  WITH CHECK ADD  CONSTRAINT [FK_tblLecturerModule_tblUser] FOREIGN KEY([UserID])
+REFERENCES [dbo].[tblUser] ([UserID])
+GO
+ALTER TABLE [dbo].[tblLecturerModule] CHECK CONSTRAINT [FK_tblLecturerModule_tblUser]
+GO
+ALTER TABLE [dbo].[tblModule]  WITH CHECK ADD  CONSTRAINT [FK_tblModule_tblModuleType] FOREIGN KEY([ModuleTypeID])
+REFERENCES [dbo].[tblModuleType] ([ModuleTypeID])
+GO
+ALTER TABLE [dbo].[tblModule] CHECK CONSTRAINT [FK_tblModule_tblModuleType]
+GO
+ALTER TABLE [dbo].[tblStudentModule]  WITH CHECK ADD  CONSTRAINT [FK_tblStudentLecturerModule_tblUser] FOREIGN KEY([UserID])
+REFERENCES [dbo].[tblUser] ([UserID])
+GO
+ALTER TABLE [dbo].[tblStudentModule] CHECK CONSTRAINT [FK_tblStudentLecturerModule_tblUser]
+GO
+ALTER TABLE [dbo].[tblStudentModule]  WITH CHECK ADD  CONSTRAINT [FK_tblStudentModule_tblLecturerModule] FOREIGN KEY([LecturerModuleID])
+REFERENCES [dbo].[tblLecturerModule] ([LecturerModuleID])
+GO
+ALTER TABLE [dbo].[tblStudentModule] CHECK CONSTRAINT [FK_tblStudentModule_tblLecturerModule]
+GO
+ALTER TABLE [dbo].[tblUser]  WITH CHECK ADD  CONSTRAINT [FK_tblUser_tblAdministrator] FOREIGN KEY([UserID])
+REFERENCES [dbo].[tblAdministrator] ([UserID])
+GO
+ALTER TABLE [dbo].[tblUser] CHECK CONSTRAINT [FK_tblUser_tblAdministrator]
+GO
+ALTER TABLE [dbo].[tblUser]  WITH CHECK ADD  CONSTRAINT [FK_tblUser_tblLecturer] FOREIGN KEY([UserID])
+REFERENCES [dbo].[tblLecturer] ([UserID])
+GO
+ALTER TABLE [dbo].[tblUser] CHECK CONSTRAINT [FK_tblUser_tblLecturer]
+GO
+ALTER TABLE [dbo].[tblUser]  WITH CHECK ADD  CONSTRAINT [FK_tblUser_tblStudent] FOREIGN KEY([UserID])
+REFERENCES [dbo].[tblStudent] ([UserID])
+GO
+ALTER TABLE [dbo].[tblUser] CHECK CONSTRAINT [FK_tblUser_tblStudent]
+GO
+USE [master]
+GO
+ALTER DATABASE [AssessmentDB] SET  READ_WRITE 
+GO
